@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_cards/pages/detail/detail_page.dart';
 import 'package:rick_and_cards/pages/home/home_page.dart';
 import 'package:rick_and_cards/pages/splash/splash_page.dart';
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/splash': (context) => const SplashPage(),
         '/home': (context) => const HomePage(),
+        '/detail': (context) => const DetailPage(),
       },
     );
   }

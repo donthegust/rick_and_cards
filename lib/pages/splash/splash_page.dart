@@ -33,7 +33,7 @@ class SplashPage extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    'Clique no potal para continuar',
+                    'Clique no portal para continuar',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),

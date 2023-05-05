@@ -2,8 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:rick_and_cards/models/character_model.dart';
-import 'package:rick_and_cards/models/info_model.dart';
+import 'package:rick_and_cards/models/navigation_arguments.dart';
 import 'package:rick_and_cards/models/response_data.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,9 +15,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final TextEditingController _searchController;
   ResponseData _responseData = ResponseData();
-  // InfoModel _infoSearchResults = InfoModel(count: 0);
-  // List<CharacterModel> _listCharacterResults = [];
-  // int _searchResultsCount = 0;
   bool _existPages = false;
 
   @override
@@ -43,16 +39,9 @@ class _HomePageState extends State<HomePage> {
 
     setState(() {
       _responseData = ResponseData.fromMap(response.data);
-      log(_responseData.info!.count.toString());
+      // log(_responseData.info!.count.toString());
       _existPages = _responseData.info!.next != null || _responseData.info!.prev != null;
-      // _searchResultsCount = _responseData.info!.count!;
-      //log(response.data['info'].toString());
-      // _infoSearchResults = InfoModel.fromMap(response.data['info']);
-      // //log(response.data['results'].toString());
-      // _listCharacterResults = response.data['results'];
     });
-    //log(response.data['info']['count'].toString());
-    // log(response.data.toString());
   }
 
   Future<void> _navigationPages(String page) async {
@@ -69,8 +58,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // log(_searchResultsCount.toString());
-    // log(_responseData.info!.count.toString());
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -90,16 +77,6 @@ class _HomePageState extends State<HomePage> {
                         onChanged: _searchCharacter,
                       ),
                     ),
-                    // const SizedBox(
-                    //   height: 20,
-                    // ),
-                    // SizedBox(
-                    //   width: MediaQuery.of(context).size.width * 0.15,
-                    //   child: ElevatedButton(
-                    //     onPressed: () {},
-                    //     child: const Icon(Icons.search),
-                    //   ),
-                    // ),
                   ],
                 ),
               ),
@@ -109,32 +86,38 @@ class _HomePageState extends State<HomePage> {
                   ? ListView.builder(
                       itemCount: _responseData.info!.count! > 20 ? 20 : _responseData.info!.count! - 1,
                       itemBuilder: (BuildContext context, int index) {
-                        // log(index.toString());
-                        return Card(
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 60,
-                                  height: 60,
-                                  margin: const EdgeInsets.all(8),
-                                  child: Image.network(_responseData.results![index]!.image!),
-                                  // child: Placeholder(),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(_responseData.results![index]!.name!),
-                                    Text(_responseData.results![index]!.status!),
-                                    Text(_responseData.results![index]!.species!),
-                                  ],
-                                )
-                              ],
+                        return InkWell(
+                          onTap: () async => {
+                            await Navigator.pushNamed(
+                              context,
+                              '/detail',
+                              arguments: NavigationArguments(char: _responseData.results![index]!),
+                            )
+                          },
+                          child: Card(
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 60,
+                                    height: 60,
+                                    margin: const EdgeInsets.all(8),
+                                    child: Image.network(_responseData.results![index]!.image!),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(_responseData.results![index]!.name!),
+                                      Text(_responseData.results![index]!.status!),
+                                      Text(_responseData.results![index]!.species!),
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         );
