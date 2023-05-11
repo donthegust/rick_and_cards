@@ -20,9 +20,9 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: Colors.green,
         useMaterial3: true,
       ),
-      initialRoute: '/splash',
+      initialRoute: '/',
       routes: {
-        '/splash': (context) => const SplashPage(),
+        '/': (context) => const SplashPage(),
         '/home': (context) => const HomePage(),
         '/detail': (context) => const DetailPage(),
       },
