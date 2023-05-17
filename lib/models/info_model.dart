@@ -1,42 +1,28 @@
-import 'dart:convert';
-
-class InfoModel {
-  int? count;
-  int? pages;
-  String? next;
-  String? prev;
-
-  InfoModel({
-    this.count,
-    this.pages,
-    this.next,
-    this.prev,
+class Info {
+  Info({
+    required this.count,
+    required this.pages,
+    required this.next,
+    required this.prev,
   });
+  late final int count;
+  late final int pages;
+  late final String? next;
+  late final String? prev;
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'count': count,
-      'pages': pages,
-      'next': next,
-      'prev': prev,
-    };
+  Info.fromJson(Map<String, dynamic> json) {
+    count = json['count'];
+    pages = json['pages'];
+    next = json['next'];
+    prev = json['prev'];
   }
 
-  factory InfoModel.fromMap(Map<String, dynamic> map) {
-    return InfoModel(
-      count: map['count'] != null ? map['count'] as int : null,
-      pages: map['pages'] != null ? map['pages'] as int : null,
-      next: map['next'] != null ? map['next'] as String : null,
-      prev: map['prev'] != null ? map['prev'] as String : null,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory InfoModel.fromJson(String source) => InfoModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() {
-    return 'InfoModel(count: $count, pages: $pages, next: $next, prev: $prev)';
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['count'] = count;
+    _data['pages'] = pages;
+    _data['next'] = next;
+    _data['prev'] = prev;
+    return _data;
   }
 }

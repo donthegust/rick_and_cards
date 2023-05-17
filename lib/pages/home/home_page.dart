@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
     );
 
     setState(() {
-      _responseData = ResponseData.fromMap(response.data);
+      _responseData = ResponseData.fromJson(response.data);
       _existPages = _responseData.info!.next != null || _responseData.info!.prev != null;
     });
   }
@@ -46,10 +46,10 @@ class _HomePageState extends State<HomePage> {
     final dio = Dio();
     if (page == 'next') {
       final response = await dio.get(_responseData.info!.next!);
-      _responseData = ResponseData.fromMap(response.data);
+      _responseData = ResponseData.fromJson(response.data);
     } else {
       final response = await dio.get(_responseData.info!.prev!);
-      _responseData = ResponseData.fromMap(response.data);
+      _responseData = ResponseData.fromJson(response.data);
     }
     setState(() {});
   }
@@ -101,14 +101,14 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       child: _responseData.results != null
                           ? ListView.builder(
-                              itemCount: _responseData.info!.count! > 20 ? 20 : _responseData.info!.count! - 1,
+                              itemCount: _responseData.info!.count > 20 ? 20 : _responseData.info!.count - 1,
                               itemBuilder: (BuildContext context, int index) {
                                 return InkWell(
                                   onTap: () async => {
                                     await Navigator.pushNamed(
                                       context,
                                       '/detail',
-                                      arguments: NavigationArguments(char: _responseData.results![index]!),
+                                      arguments: NavigationArguments(id: _responseData.results![index].id),
                                     )
                                   },
                                   child: Card(
@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                                             width: 60,
                                             height: 60,
                                             margin: const EdgeInsets.all(8),
-                                            child: Image.network(_responseData.results![index]!.image!),
+                                            child: Image.network(_responseData.results![index].image),
                                           ),
                                           const SizedBox(
                                             width: 10,
@@ -128,9 +128,9 @@ class _HomePageState extends State<HomePage> {
                                           Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text(_responseData.results![index]!.name!),
-                                              Text(_responseData.results![index]!.status!),
-                                              Text(_responseData.results![index]!.species!),
+                                              Text(_responseData.results![index].name),
+                                              Text(_responseData.results![index].status),
+                                              Text(_responseData.results![index].species),
                                             ],
                                           )
                                         ],

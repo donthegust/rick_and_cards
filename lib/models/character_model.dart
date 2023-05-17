@@ -1,78 +1,63 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:rick_and_cards/models/location_model.dart';
 import 'package:rick_and_cards/models/origin_model.dart';
 
-class CharacterModel {
-  int? id;
-  String? name;
-  String? status;
-  String? species;
-  String? type;
-  String? gender;
-  Origin? origin;
-  Location? location;
-  String? image;
-  List<String?>? episode;
-  String? url;
-  DateTime? created;
-
-  CharacterModel({
-    this.id,
-    this.name,
-    this.status,
-    this.species,
-    this.type,
-    this.gender,
-    this.origin,
-    this.location,
-    this.image,
-    this.episode,
-    this.url,
-    this.created,
+class Results {
+  Results({
+    required this.id,
+    required this.name,
+    required this.status,
+    required this.species,
+    required this.type,
+    required this.gender,
+    required this.origin,
+    required this.location,
+    required this.image,
+    required this.episode,
+    required this.url,
+    required this.created,
   });
+  late final int id;
+  late final String name;
+  late final String status;
+  late final String species;
+  late final String type;
+  late final String gender;
+  late final Origin origin;
+  late final Location location;
+  late final String image;
+  late final List<String> episode;
+  late final String url;
+  late final String created;
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'status': status,
-      'species': species,
-      'type': type,
-      'gender': gender,
-      'origin': origin?.toMap(),
-      'location': location?.toMap(),
-      'image': image,
-      //'episode': episode.map((x) => x?.toMap()).toList(),
-      'url': url,
-      'created': created?.millisecondsSinceEpoch,
-    };
+  Results.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    status = json['status'];
+    species = json['species'];
+    type = json['type'];
+    gender = json['gender'];
+    origin = Origin.fromJson(json['origin']);
+    location = Location.fromJson(json['location']);
+    image = json['image'];
+    episode = List.castFrom<dynamic, String>(json['episode']);
+    url = json['url'];
+    created = json['created'];
   }
 
-  factory CharacterModel.fromMap(Map<String, dynamic> map) {
-    return CharacterModel(
-      id: map['id'] != null ? map['id'] as int : null,
-      name: map['name'] != null ? map['name'] as String : null,
-      status: map['status'] != null ? map['status'] as String : null,
-      species: map['species'] != null ? map['species'] as String : null,
-      type: map['type'] != null ? map['type'] as String : null,
-      gender: map['gender'] != null ? map['gender'] as String : null,
-      origin: map['origin'] != null ? Origin.fromMap(map['origin'] as Map<String, dynamic>) : null,
-      location: map['location'] != null ? Location.fromMap(map['location'] as Map<String, dynamic>) : null,
-      image: map['image'] != null ? map['image'] as String : null,
-      //episode: map['episode'] != null ? List<String?>.from((map['episode'] as List<int>).map<String??>((x) => String?.fromMap(x as Map<String,dynamic>),),) : null,
-      url: map['url'] != null ? map['url'] as String : null,
-      // created: map['created'] != null ? DateTime.fromMillisecondsSinceEpoch(map['created'] as int) : null,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory CharacterModel.fromJson(String source) => CharacterModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() {
-    return 'CharacterModel(id: $id, name: $name, status: $status, species: $species, type: $type, gender: $gender, origin: $origin, location: $location, image: $image, episode: $episode, url: $url, created: $created)';
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['id'] = id;
+    _data['name'] = name;
+    _data['status'] = status;
+    _data['species'] = species;
+    _data['type'] = type;
+    _data['gender'] = gender;
+    _data['origin'] = origin.toJson();
+    _data['location'] = location.toJson();
+    _data['image'] = image;
+    _data['episode'] = episode;
+    _data['url'] = url;
+    _data['created'] = created;
+    return _data;
   }
 }

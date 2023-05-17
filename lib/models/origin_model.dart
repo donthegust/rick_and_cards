@@ -1,30 +1,20 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 class Origin {
-  String? name;
-  String? url;
+  Origin({
+    required this.name,
+    required this.url,
+  });
+  late final String name;
+  late final String url;
 
-  Origin({this.name, this.url});
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'name': name,
-      'url': url,
-    };
+  Origin.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    url = json['url'];
   }
 
-  factory Origin.fromMap(Map<String, dynamic> map) {
-    return Origin(
-      name: map['name'] != null ? map['name'] as String : null,
-      url: map['url'] != null ? map['url'] as String : null,
-    );
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['name'] = name;
+    _data['url'] = url;
+    return _data;
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory Origin.fromJson(String source) => Origin.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() => 'Origin(name: $name, url: $url)';
 }

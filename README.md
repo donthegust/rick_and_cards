@@ -1,16 +1,38 @@
-# rick_and_cards
+# **Rick and Cards**
 
-A new Flutter project.
+### Projeto desenvolvido para apresentação do Mini Curso de Desenvolvimento de Aplicativos Mobile com Flutter e consumo de APIs da primeira Semana da Informática do IFSP - Campus Boituva
 
-## Getting Started
+<br>
 
-This project is a starting point for a Flutter application.
+### **Como executar**
 
-A few resources to get you started if this is your first Flutter project:
+Clone o repositório
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```sh
+git clone git@github.com:donthegust/rick_and_cards.git
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Abra o diretório
+
+```sh
+cd flutter_calculator
+```
+
+Instale todas as dependências com
+
+```sh
+flutter pub get
+```
+
+Execute o projeto com
+
+```sh
+flutter run
+```
+
+Ou caso queira, abra o código para explora-lo com
+
+```sh
+code .
+```
+_Comando **code** funciona apenas se o VSCode estiver instalado_

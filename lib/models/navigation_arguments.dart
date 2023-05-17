@@ -1,7 +1,5 @@
-import 'package:rick_and_cards/models/character_model.dart';
-
 class NavigationArguments {
-  final CharacterModel char;
+  final int id;
 
-  NavigationArguments({required this.char});
+  NavigationArguments({required this.id});
 }
