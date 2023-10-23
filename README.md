@@ -15,7 +15,7 @@ git clone git@github.com:donthegust/rick_and_cards.git
 Abra o diretório
 
 ```sh
-cd flutter_calculator
+cd rick_and_cards
 ```
 
 Instale todas as dependências com
